@@ -1,0 +1,29 @@
+{
+  "deno.codeLens.implementations": true,
+  "deno.codeLens.references": true,
+  "deno.codeLens.referencesAllFunctions": true,
+  "deno.codeLens.test": true,
+  "deno.enable": true,
+  "deno.lint": true,
+  "deno.path": "/home/codespace/.asdf/shims/deno",
+  "typescript.suggest.autoImports": true,
+  "deno.importMap": "./import_map.json",
+  "liveServer.settings.multiRootWorkspaceName": "kz-lib",
+  "cSpell.customDictionaries": {
+    "i11n-words": {
+      "name": "i11n-words",
+      "description": "integereleven dictionary",
+      "path": "./.vscode/i11n.dic"
+    },
+    "codebase-words": {
+      "name": "codebase-words",
+      "description": "codebase dictionary",
+      "path": "./.vscode/codebase.dic"
+    },
+    "testing-words": {
+      "name": "testing-words",
+      "description": "testing dictionary",
+      "path": "./.vscode/testing.dic"
+    }
+  }
+}
