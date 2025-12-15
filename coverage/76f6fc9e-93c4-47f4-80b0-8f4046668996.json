@@ -1,0 +1,17 @@
+{
+  "scriptId": "334",
+  "url": "file:///workspaces/type-utils/tests/options/base/$resolve_options.test.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [
+        {
+          "startOffset": 0,
+          "endOffset": 366,
+          "count": 1
+        }
+      ],
+      "isBlockCoverage": true
+    }
+  ]
+}

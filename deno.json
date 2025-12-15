@@ -3,6 +3,7 @@
   "exports": {
     "./options": "./src/options/mod.ts"
   },
+  "version": "0.0.1",
   "importMap": "./import_map.json",
   "tasks": {
     "test": {
@@ -31,7 +32,7 @@
     },
     "checks": {
       "description": "Run all checks for all packages",
-      "command": "deno task lint:all && deno fmt && deno fmt --check && deno task test && deno task cov:all"
+      "command": "deno task lint:all && deno fmt && deno fmt --check && deno task test"
     },
     "pre-commit": {
       "description": "Run pre-commit checks",
@@ -57,9 +58,9 @@
       "description": "Run all linters on all packages",
       "command": "deno task lint:code && deno task lint:exports && deno task lint:copyright && deno task lint:clean"
     },
-    "docs:type-utils": {
+    "docs": {
       "description": "Generate documentation for all packages",
-      "command": "deno doc --html --output=docs/type-utils --name='Type Utils' ./kz/type-utils/*/mod.ts"
+      "command": "deno doc --html --output=docs --name='Type Utils' ./src/*/mod.ts"
     }
   },
   "lint": {

@@ -1,3 +1,5 @@
+// Copyright 2020 - present integereleven. All rights reserved. MIT license.
+
 export function add(a: number, b: number): number {
   return a + b;
 }
