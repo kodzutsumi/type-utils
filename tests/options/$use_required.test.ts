@@ -4,8 +4,8 @@ import { describe, it } from '@std/testing/bdd';
 import { assertType, type IsExact } from '@std/testing/types';
 
 import type {
-  $AsRequired,
   $AsOptional,
+  $AsRequired,
   $GetUseRequired,
   $PickUseRequired,
   $UseRequired,
@@ -13,98 +13,104 @@ import type {
 } from '@kz/type-utils/options';
 
 describe('Option - Required', () => {
-  describe('$UseRequiredKey', () => {
-    it('should be "$$use_required"', () => {
-      type Expected = '$$use_required';
-      type Actual = $UseRequiredKey;
+  describe('directive', () => {
+    describe('$UseRequiredKey', () => {
+      it('should be "$$use_required"', () => {
+        type Expected = '$$use_required';
+        type Actual = $UseRequiredKey;
 
-      assertType<IsExact<Actual, Expected>>(true);
+        assertType<IsExact<Actual, Expected>>(true);
+      });
+    });
+
+    describe('$UseRequired', () => {
+      it('should create an option with the correct key and value', () => {
+        type RequiredOption = $UseRequired<true>;
+        type OptionalOption = $UseRequired<false>;
+
+        type ExpectedRequired = {
+          '$$use_required': true;
+        };
+
+        type ExpectedOptional = {
+          '$$use_required': false;
+        };
+
+        assertType<IsExact<RequiredOption, ExpectedRequired>>(true);
+        assertType<IsExact<OptionalOption, ExpectedOptional>>(true);
+      });
     });
   });
 
-  describe('$UseRequired', () => {
-    it('should create an option with the correct key and value', () => {
-      type RequiredOption = $UseRequired<true>;
-      type OptionalOption = $UseRequired<false>;
+  describe('attributes', () => {
+    describe('$AsRequired', () => {
+      it('should be equivalent to $UseRequired<true>', () => {
+        type Expected = $UseRequired<true>;
+        type Actual = $AsRequired;
 
-      type ExpectedRequired = {
-        '$$use_required': true;
-      };
+        assertType<IsExact<Actual, Expected>>(true);
+      });
+    });
 
-      type ExpectedOptional = {
-        '$$use_required': false;
-      };
+    describe('$AsOptional', () => {
+      it('should be equivalent to $UseRequired<false>', () => {
+        type Expected = $UseRequired<false>;
+        type Actual = $AsOptional;
 
-      assertType<IsExact<RequiredOption, ExpectedRequired>>(true);
-      assertType<IsExact<OptionalOption, ExpectedOptional>>(true);
+        assertType<IsExact<Actual, Expected>>(true);
+      });
     });
   });
 
-  describe('$AsRequired', () => {
-    it('should be equivalent to $UseRequired<true>', () => {
-      type Expected = $UseRequired<true>;
-      type Actual = $AsRequired;
+  describe('utilities', () => {
+    describe('$GetUseRequired', () => {
+      it('should retrieve the required option value from the options object', () => {
+        type Options = {
+          '$$use_required': true;
+          '$$other_option': number;
+        };
 
-      assertType<IsExact<Actual, Expected>>(true);
-    });
-  });
+        type Result = $GetUseRequired<Options>;
 
-  describe('$AsOptional', () => {
-    it('should be equivalent to $UseRequired<false>', () => {
-      type Expected = $UseRequired<false>;
-      type Actual = $AsOptional;
+        assertType<IsExact<Result, true>>(true);
+      });
 
-      assertType<IsExact<Actual, Expected>>(true);
-    });
-  });
+      it('should return never if the required option is not present', () => {
+        type Options = {
+          '$$other_option': number;
+        };
 
-  describe('$GetUseRequired', () => {
-    it('should retrieve the required option value from the options object', () => {
-      type Options = {
-        '$$use_required': true;
-        '$$other_option': number;
-      };
+        type Result = $GetUseRequired<Options>;
 
-      type Result = $GetUseRequired<Options>;
-
-      assertType<IsExact<Result, true>>(true);
+        assertType<IsExact<Result, never>>(true);
+      });
     });
 
-    it('should return never if the required option is not present', () => {
-      type Options = {
-        '$$other_option': number;
-      };
+    describe('$PickUseRequired', () => {
+      it('should pick the required option from the options object', () => {
+        type Options = {
+          '$$use_required': false;
+          '$$other_option': string;
+        };
 
-      type Result = $GetUseRequired<Options>;
+        type Result = $PickUseRequired<Options>;
 
-      assertType<IsExact<Result, never>>(true);
-    });
-  });
+        type Expected = {
+          '$$use_required': false;
+        };
 
-  describe('$PickUseRequired', () => {
-    it('should pick the required option from the options object', () => {
-      type Options = {
-        '$$use_required': false;
-        '$$other_option': string;
-      };
+        assertType<IsExact<Result, Expected>>(true);
+      });
 
-      type Result = $PickUseRequired<Options>;
+      it('should return an empty object if the required option is not present', () => {
+        type Options = {
+          '$$other_option': string;
+        };
 
-      type Expected = {
-        '$$use_required': false;
-      };
+        type Result = $PickUseRequired<Options>;
 
-      assertType<IsExact<Result, Expected>>(true);
-    });
-
-    it('should return an empty object if the required option is not present', () => {
-      type Options = {
-        '$$other_option': string;
-      };
-
-      type Result = $PickUseRequired<Options>;
-
-      assertType<IsExact<Result, Record<never, never>>>(true);
+        assertType<IsExact<Result, Record<never, never>>>(true);
+      });
     });
   });
 });

@@ -22,10 +22,12 @@ import type {
   $AsSync,
   $AsUnsafe,
   $AsUpright,
+  $Else,
   $FlipOptions,
+  $Then,
 } from '@kz/type-utils/options';
 
-describe('$FlipOptions', () => {
+describe('Base - $FlipOptions', () => {
   // $UseAsync
   it('should flip $AsAsync to $AsSync and vice versa', () => {
     type $AsyncResult = $FlipOptions<$AsAsync>;
@@ -34,10 +36,6 @@ describe('$FlipOptions', () => {
     assertType<IsExact<$AsyncResult, $AsSync>>(true);
     assertType<IsExact<$SyncResult, $AsAsync>>(true);
   });
-  // $UseCollection
-  // $UseCondition
-  // $UseDefault
-  // $UseDepth  
   // $UseDirection
   it('should flip $AsReverse to $AsForward and vice versa', () => {
     type $ReverseResult = $FlipOptions<$AsReverse>;
@@ -47,6 +45,12 @@ describe('$FlipOptions', () => {
     assertType<IsExact<$ForwardResult, $AsReverse>>(true);
   });
   // $UseElse
+  it('should flip $Else to $Then', () => {
+    type $ElseResult = $FlipOptions<$Else<string>>;
+    type $ThenResult = $Then<string>;
+
+    assertType<IsExact<$ElseResult, $ThenResult>>(true);
+  });
   // $UseExclusion
   it('should flip $AsExcluded to $AsIncluded and vice versa', () => {
     type $ExcludedResult = $FlipOptions<$AsExcluded>;
@@ -56,8 +60,13 @@ describe('$FlipOptions', () => {
     assertType<IsExact<$IncludedResult, $AsExcluded>>(true);
   });
   // $UseFilter
-  // $UseIdentMap
-  // $UseIdents
+  it('should flip $AsIncluded to $AsExcluded and vice versa', () => {
+    type $IncludedResult = $FlipOptions<$AsIncluded>;
+    type $ExcludedResult = $FlipOptions<$AsExcluded>;
+
+    assertType<IsExact<$IncludedResult, $AsExcluded>>(true);
+    assertType<IsExact<$ExcludedResult, $AsIncluded>>(true);
+  });
   // $UseImmutable
   it('should flip $AsImmutable to $AsMutable and vice versa', () => {
     type $ImmutableResult = $FlipOptions<$AsImmutable>;
@@ -74,9 +83,6 @@ describe('$FlipOptions', () => {
     assertType<IsExact<$InvertedResult, $AsUpright>>(true);
     assertType<IsExact<$UprightResult, $AsInverted>>(true);
   });
-  // $UseIndices
-  // $UseKeys
-  // $UsePaths
   // $UseRequired
   it('should flip $AsRequired to $AsOptional and vice versa', () => {
     type $RequiredResult = $FlipOptions<$AsRequired>;
@@ -110,6 +116,17 @@ describe('$FlipOptions', () => {
     assertType<IsExact<$LooseResult, $AsStrict>>(true);
   });
   // $UseThen
+  it('should flip $Then to $Else', () => {
+    type $ThenResult = $FlipOptions<$Then<string>>;
+    type $ElseResult = $Else<string>;
 
+    assertType<IsExact<$ElseResult, $ThenResult>>(true);
+  });
+  
+  it('should flip $Then to $Else and vice versa', () => {
+    type $ElseResult = $FlipOptions<$Else<string> & $Then<number>>;
+    type $ThenResult = $Then<string> & $Else<number>;
 
+    assertType<IsExact<$ElseResult, $ThenResult>>(true);
+  });
 });

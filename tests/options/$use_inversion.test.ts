@@ -13,98 +13,104 @@ import type {
 } from '@kz/type-utils/options';
 
 describe('Option - Inversion', () => {
-  describe('$UseInversionKey', () => {
-    it('should be "$$use_inversion"', () => {
-      type Expected = '$$use_inversion';
-      type Actual = $UseInversionKey;
+  describe('directive', () => {
+    describe('$UseInversionKey', () => {
+      it('should be "$$use_inversion"', () => {
+        type Expected = '$$use_inversion';
+        type Actual = $UseInversionKey;
 
-      assertType<IsExact<Actual, Expected>>(true);
+        assertType<IsExact<Actual, Expected>>(true);
+      });
+    });
+
+    describe('$UseInversion', () => {
+      it('should create an option with the correct key and value', () => {
+        type InversionOption = $UseInversion<true>;
+        type UprightOption = $UseInversion<false>;
+
+        type ExpectedInversion = {
+          '$$use_inversion': true;
+        };
+
+        type ExpectedUpright = {
+          '$$use_inversion': false;
+        };
+
+        assertType<IsExact<InversionOption, ExpectedInversion>>(true);
+        assertType<IsExact<UprightOption, ExpectedUpright>>(true);
+      });
     });
   });
 
-  describe('$UseInversion', () => {
-    it('should create an option with the correct key and value', () => {
-      type InversionOption = $UseInversion<true>;
-      type UprightOption = $UseInversion<false>;
+  describe('attributes', () => {
+    describe('$AsInverted', () => {
+      it('should be equivalent to $UseInversion<true>', () => {
+        type Expected = $UseInversion<true>;
+        type Actual = $AsInverted;
 
-      type ExpectedInversion = {
-        '$$use_inversion': true;
-      };
+        assertType<IsExact<Actual, Expected>>(true);
+      });
+    });
 
-      type ExpectedUpright = {
-        '$$use_inversion': false;
-      };
+    describe('$AsUpright', () => {
+      it('should be equivalent to $UseInversion<false>', () => {
+        type Expected = $UseInversion<false>;
+        type Actual = $AsUpright;
 
-      assertType<IsExact<InversionOption, ExpectedInversion>>(true);
-      assertType<IsExact<UprightOption, ExpectedUpright>>(true);
+        assertType<IsExact<Actual, Expected>>(true);
+      });
     });
   });
 
-  describe('$AsInverted', () => {
-    it('should be equivalent to $UseInversion<true>', () => {
-      type Expected = $UseInversion<true>;
-      type Actual = $AsInverted;
+  describe('utilities', () => {
+    describe('$GetUseInversion', () => {
+      it('should retrieve the inversion option value from the options object', () => {
+        type Options = {
+          '$$use_inversion': true;
+          '$$other_option': number;
+        };
 
-      assertType<IsExact<Actual, Expected>>(true);
-    });
-  });
+        type Result = $GetUseInversion<Options>;
 
-  describe('$AsUpright', () => {
-    it('should be equivalent to $UseInversion<false>', () => {
-      type Expected = $UseInversion<false>;
-      type Actual = $AsUpright;
+        assertType<IsExact<Result, true>>(true);
+      });
 
-      assertType<IsExact<Actual, Expected>>(true);
-    });
-  });
+      it('should return never if the inversion option is not present', () => {
+        type Options = {
+          '$$other_option': number;
+        };
 
-  describe('$GetUseInversion', () => {
-    it('should retrieve the Inversion option value from the options object', () => {
-      type Options = {
-        '$$use_inversion': true;
-        '$$other_option': number;
-      };
+        type Result = $GetUseInversion<Options>;
 
-      type Result = $GetUseInversion<Options>;
-
-      assertType<IsExact<Result, true>>(true);
+        assertType<IsExact<Result, never>>(true);
+      });
     });
 
-    it('should return never if the Inversion option is not present', () => {
-      type Options = {
-        '$$other_option': number;
-      };
+    describe('$PickUseInversion', () => {
+      it('should pick the inversion option from the options object', () => {
+        type Options = {
+          '$$use_inversion': false;
+          '$$other_option': string;
+        };
 
-      type Result = $GetUseInversion<Options>;
+        type Result = $PickUseInversion<Options>;
 
-      assertType<IsExact<Result, never>>(true);
-    });
-  });
+        type Expected = {
+          '$$use_inversion': false;
+        };
 
-  describe('$PickUseInversion', () => {
-    it('should pick the Inversion option from the options object', () => {
-      type Options = {
-        '$$use_inversion': false;
-        '$$other_option': string;
-      };
+        assertType<IsExact<Result, Expected>>(true);
+      });
 
-      type Result = $PickUseInversion<Options>;
+      it('should return an empty object if the inversion option is not present', () => {
+        type Options = {
+          '$$other_option': string;
+        };
 
-      type Expected = {
-        '$$use_inversion': false;
-      };
+        type Result = $PickUseInversion<Options>;
 
-      assertType<IsExact<Result, Expected>>(true);
-    });
-
-    it('should return an empty object if the Inversion option is not present', () => {
-      type Options = {
-        '$$other_option': string;
-      };
-
-      type Result = $PickUseInversion<Options>;
-
-      assertType<IsExact<Result, Record<never, never>>>(true);
+        assertType<IsExact<Result, Record<never, never>>>(true);
+      });
     });
   });
 });

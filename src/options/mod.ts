@@ -14,16 +14,91 @@ export type {
   $UseAsyncKey,
 } from './$use_async.ts';
 // $UseCollection
-// $UseCondition
+export type {
+  $Collect,
+  $CollectAll,
+  $CollectIdents,
+  $CollectValues,
+  $GetUseCollection,
+  $PickUseCollection,
+  $UseCollection,
+  $UseCollectionKey,
+  $UseCollectionTarget,
+} from './$use_collection.ts';
 // $UseDefault
+export type {
+  $DefaultTo,
+  $GetUseDefault,
+  $PickUseDefault,
+  $UseDefault,
+  $UseDefaultKey,
+} from './$use_default.ts';
 // $UseDepth
-export type { $AsForward, $AsReverse, $GetUseDirection, $PickUseDirection, $UseDirection, $UseDirectionKey } from './$use_direction.ts';
-export type { $AsExcluded, $AsIncluded, $GetUseExclusion, $PickUseExclusion, $UseExclusion, $UseExclusionKey } from './$use_exclusion.ts';
+export type {
+  $AsDeep,
+  $AsLevel,
+  $AsShallow,
+  $DecrementDepth,
+  $Depth,
+  $GetUseDepth,
+  $IsDeep,
+  $PickUseDepth,
+  $UseDepth,
+  $UseDepthKey,
+} from './$use_depth.ts';
+// $UseDirection
+export type {
+  $AsForward,
+  $AsReverse,
+  $GetUseDirection,
+  $PickUseDirection,
+  $UseDirection,
+  $UseDirectionKey,
+} from './$use_direction.ts';
+export type {
+  $AsExcluded,
+  $AsIncluded,
+  $GetUseExclusion,
+  $PickUseExclusion,
+  $UseExclusion,
+  $UseExclusionKey,
+} from './$use_exclusion.ts';
 // $UseElse
+export type {
+  $Else,
+  $GetUseElse,
+  $PickUseElse,
+  $UseElse,
+  $UseElseKey,
+} from './$use_else.ts';
 // $UseFilter
+export type {
+  $AsFilter,
+  $AsPredicate,
+  $GetUseFilter,
+  $PickUseFilter,
+  $UseFilter,
+  $UseFilterKey,
+} from './$use_filter.ts';
 // $UseIdentMap
 // $UseIdents
-export type { $AsImmutable, $AsMutable, $GetUseImmutable, $PickUseImmutable, $UseImmutable, $UseImmutableKey } from './$use_immutable.ts';
+export type {
+  $GetUseIdents,
+  $IdentsOf,
+  $PickUseIdents,
+  $UseIdents,
+  $UseIdentsKey,
+  $UseIdentsTypeKey,
+} from './$use_idents.ts';
+// $UseImmutable
+export type {
+  $AsImmutable,
+  $AsMutable,
+  $GetUseImmutable,
+  $PickUseImmutable,
+  $UseImmutable,
+  $UseImmutableKey,
+} from './$use_immutable.ts';
 // $UseIndices
 export type {
   $AsInverted,
@@ -35,8 +110,22 @@ export type {
 } from './$use_inversion.ts';
 // $UseKeys
 // $UsePaths
-export type { $AsOptional, $AsRequired, $GetUseRequired, $PickUseRequired, $UseRequired, $UseRequiredKey } from './$use_required.ts';
-export type { $AsSafe, $AsUnsafe, $GetUseSafe, $PickUseSafe, $UseSafe, $UseSafeKey } from './$use_safe.ts';
+export type {
+  $AsOptional,
+  $AsRequired,
+  $GetUseRequired,
+  $PickUseRequired,
+  $UseRequired,
+  $UseRequiredKey,
+} from './$use_required.ts';
+export type {
+  $AsSafe,
+  $AsUnsafe,
+  $GetUseSafe,
+  $PickUseSafe,
+  $UseSafe,
+  $UseSafeKey,
+} from './$use_safe.ts';
 export type {
   $AsGetter,
   $AsSetter,
@@ -45,5 +134,19 @@ export type {
   $UseSetter,
   $UseSetterKey,
 } from './$use_setter.ts';
-export type { $AsLoose, $AsStrict, $GetUseStrict, $PickUseStrict, $UseStrict, $UseStrictKey } from './$use_strict.ts';
+export type {
+  $AsLoose,
+  $AsStrict,
+  $GetUseStrict,
+  $PickUseStrict,
+  $UseStrict,
+  $UseStrictKey,
+} from './$use_strict.ts';
 // $UseThen
+export type {
+  $GetUseThen,
+  $PickUseThen,
+  $Then,
+  $UseThen,
+  $UseThenKey,
+} from './$use_then.ts';

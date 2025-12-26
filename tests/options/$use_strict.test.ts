@@ -4,8 +4,8 @@ import { describe, it } from '@std/testing/bdd';
 import { assertType, type IsExact } from '@std/testing/types';
 
 import type {
-  $AsStrict,
   $AsLoose,
+  $AsStrict,
   $GetUseStrict,
   $PickUseStrict,
   $UseStrict,
@@ -13,98 +13,104 @@ import type {
 } from '@kz/type-utils/options';
 
 describe('Option - Strict', () => {
-  describe('$UseStrictKey', () => {
-    it('should be "$$use_strict"', () => {
-      type Expected = '$$use_strict';
-      type Actual = $UseStrictKey;
+  describe('directive', () => {
+    describe('$UseStrictKey', () => {
+      it('should be "$$use_strict"', () => {
+        type Expected = '$$use_strict';
+        type Actual = $UseStrictKey;
 
-      assertType<IsExact<Actual, Expected>>(true);
+        assertType<IsExact<Actual, Expected>>(true);
+      });
+    });
+
+    describe('$UseStrict', () => {
+      it('should create an option with the correct key and value', () => {
+        type StrictOption = $UseStrict<true>;
+        type LooseOption = $UseStrict<false>;
+
+        type ExpectedStrict = {
+          '$$use_strict': true;
+        };
+
+        type ExpectedLoose = {
+          '$$use_strict': false;
+        };
+
+        assertType<IsExact<StrictOption, ExpectedStrict>>(true);
+        assertType<IsExact<LooseOption, ExpectedLoose>>(true);
+      });
     });
   });
 
-  describe('$UseStrict', () => {
-    it('should create an option with the correct key and value', () => {
-      type StrictOption = $UseStrict<true>;
-      type LooseOption = $UseStrict<false>;
+  describe('attributes', () => {
+    describe('$AsStrict', () => {
+      it('should be equivalent to $UseStrict<true>', () => {
+        type Expected = $UseStrict<true>;
+        type Actual = $AsStrict;
 
-      type ExpectedStrict = {
-        '$$use_strict': true;
-      };
+        assertType<IsExact<Actual, Expected>>(true);
+      });
+    });
 
-      type ExpectedLoose = {
-        '$$use_strict': false;
-      };
+    describe('$AsLoose', () => {
+      it('should be equivalent to $UseStrict<false>', () => {
+        type Expected = $UseStrict<false>;
+        type Actual = $AsLoose;
 
-      assertType<IsExact<StrictOption, ExpectedStrict>>(true);
-      assertType<IsExact<LooseOption, ExpectedLoose>>(true);
+        assertType<IsExact<Actual, Expected>>(true);
+      });
     });
   });
 
-  describe('$AsStrict', () => {
-    it('should be equivalent to $UseStrict<true>', () => {
-      type Expected = $UseStrict<true>;
-      type Actual = $AsStrict;
+  describe('utilities', () => {
+    describe('$GetUseStrict', () => {
+      it('should retrieve the strict option value from the options object', () => {
+        type Options = {
+          '$$use_strict': true;
+          '$$other_option': number;
+        };
 
-      assertType<IsExact<Actual, Expected>>(true);
-    });
-  });
+        type Result = $GetUseStrict<Options>;
 
-  describe('$AsLoose', () => {
-    it('should be equivalent to $UseStrict<false>', () => {
-      type Expected = $UseStrict<false>;
-      type Actual = $AsLoose;
+        assertType<IsExact<Result, true>>(true);
+      });
 
-      assertType<IsExact<Actual, Expected>>(true);
-    });
-  });
+      it('should return never if the strict option is not present', () => {
+        type Options = {
+          '$$other_option': number;
+        };
 
-  describe('$GetUseStrict', () => {
-    it('should retrieve the strict option value from the options object', () => {
-      type Options = {
-        '$$use_strict': true;
-        '$$other_option': number;
-      };
+        type Result = $GetUseStrict<Options>;
 
-      type Result = $GetUseStrict<Options>;
-
-      assertType<IsExact<Result, true>>(true);
+        assertType<IsExact<Result, never>>(true);
+      });
     });
 
-    it('should return never if the strict option is not present', () => {
-      type Options = {
-        '$$other_option': number;
-      };
+    describe('$PickUseStrict', () => {
+      it('should pick the strict option from the options object', () => {
+        type Options = {
+          '$$use_strict': false;
+          '$$other_option': string;
+        };
 
-      type Result = $GetUseStrict<Options>;
+        type Result = $PickUseStrict<Options>;
 
-      assertType<IsExact<Result, never>>(true);
-    });
-  });
+        type Expected = {
+          '$$use_strict': false;
+        };
 
-  describe('$PickUseStrict', () => {
-    it('should pick the strict option from the options object', () => {
-      type Options = {
-        '$$use_strict': false;
-        '$$other_option': string;
-      };
+        assertType<IsExact<Result, Expected>>(true);
+      });
 
-      type Result = $PickUseStrict<Options>;
+      it('should return an empty object if the strict option is not present', () => {
+        type Options = {
+          '$$other_option': string;
+        };
 
-      type Expected = {
-        '$$use_strict': false;
-      };
+        type Result = $PickUseStrict<Options>;
 
-      assertType<IsExact<Result, Expected>>(true);
-    });
-
-    it('should return an empty object if the strict option is not present', () => {
-      type Options = {
-        '$$other_option': string;
-      };
-
-      type Result = $PickUseStrict<Options>;
-
-      assertType<IsExact<Result, Record<never, never>>>(true);
+        assertType<IsExact<Result, Record<never, never>>>(true);
+      });
     });
   });
 });

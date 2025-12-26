@@ -5,7 +5,7 @@ import { assertType, type IsExact } from '@std/testing/types';
 
 import type { $HasOption } from '@kz/type-utils/options';
 
-describe('$HasOption', () => {
+describe('Base - $HasOption', () => {
   it('should return true', () => {
     type Options = {
       $$optionA: string;

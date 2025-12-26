@@ -6,6 +6,6 @@
 
 // import type { $MergeOptions } from '@kz/type-utils/options';
 
-// describe('$MergeOptions', () => {
+// describe('Base - $MergeOptions', () => {
 
 // });

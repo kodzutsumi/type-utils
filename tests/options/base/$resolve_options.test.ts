@@ -7,6 +7,6 @@
 
 // import type { $ResolveOptions } from '@kz/type-utils/options';
 
-// describe('$ResolveOptions', () => {
+// describe('Base - $ResolveOptions', () => {
 
 // });

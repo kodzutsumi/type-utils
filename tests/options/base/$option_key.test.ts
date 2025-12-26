@@ -5,7 +5,7 @@ import { assertType, type Has } from '@std/testing/types';
 
 import type { $OptionKey } from '@kz/type-utils/options';
 
-describe('$Options', () => {
+describe('Base - $Options', () => {
   it('should be a key with a specific pattern', () => {
     type Valid = '$$optionA';
 

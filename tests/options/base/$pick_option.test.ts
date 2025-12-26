@@ -5,7 +5,7 @@ import { assertType, type IsExact } from '@std/testing/types';
 
 import type { $PickOption } from '@kz/type-utils/options';
 
-describe('$PickOption', () => {
+describe('Base - $PickOption', () => {
   it('should return a keyed subset of the original object', () => {
     type Options = {
       $$optionA: string;

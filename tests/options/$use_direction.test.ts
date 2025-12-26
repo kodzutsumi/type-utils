@@ -4,8 +4,8 @@ import { describe, it } from '@std/testing/bdd';
 import { assertType, type IsExact } from '@std/testing/types';
 
 import type {
-  $AsReverse,
   $AsForward,
+  $AsReverse,
   $GetUseDirection,
   $PickUseDirection,
   $UseDirection,
@@ -13,98 +13,104 @@ import type {
 } from '@kz/type-utils/options';
 
 describe('Option - Direction', () => {
-  describe('$UseDirectionKey', () => {
-    it('should be "$$use_direction"', () => {
-      type Expected = '$$use_direction';
-      type Actual = $UseDirectionKey;
+  describe('directive', () => {
+    describe('$UseDirectionKey', () => {
+      it('should be "$$use_direction"', () => {
+        type Expected = '$$use_direction';
+        type Actual = $UseDirectionKey;
 
-      assertType<IsExact<Actual, Expected>>(true);
+        assertType<IsExact<Actual, Expected>>(true);
+      });
+    });
+
+    describe('$UseDirection', () => {
+      it('should create an option with the correct key and value', () => {
+        type ReverseOption = $UseDirection<true>;
+        type ForwardOption = $UseDirection<false>;
+
+        type ExpectedReversed = {
+          '$$use_direction': true;
+        };
+
+        type ExpectedForward = {
+          '$$use_direction': false;
+        };
+
+        assertType<IsExact<ReverseOption, ExpectedReversed>>(true);
+        assertType<IsExact<ForwardOption, ExpectedForward>>(true);
+      });
     });
   });
 
-  describe('$UseDirection', () => {
-    it('should create an option with the correct key and value', () => {
-      type ReverseOption = $UseDirection<true>;
-      type ForwardOption = $UseDirection<false>;
+  describe('attributes', () => {
+    describe('$AsReverse', () => {
+      it('should be equivalent to $UseDirection<true>', () => {
+        type Expected = $UseDirection<true>;
+        type Actual = $AsReverse;
 
-      type ExpectedReversed = {
-        '$$use_direction': true;
-      };
+        assertType<IsExact<Actual, Expected>>(true);
+      });
+    });
 
-      type ExpectedForward = {
-        '$$use_direction': false;
-      };
+    describe('$AsForward', () => {
+      it('should be equivalent to $UseDirection<false>', () => {
+        type Expected = $UseDirection<false>;
+        type Actual = $AsForward;
 
-      assertType<IsExact<ReverseOption, ExpectedReversed>>(true);
-      assertType<IsExact<ForwardOption, ExpectedForward>>(true);
+        assertType<IsExact<Actual, Expected>>(true);
+      });
     });
   });
 
-  describe('$AsReverse', () => {
-    it('should be equivalent to $UseDirection<true>', () => {
-      type Expected = $UseDirection<true>;
-      type Actual = $AsReverse;
+  describe('utilities', () => {
+    describe('$GetUseDirection', () => {
+      it('should retrieve the direction option value from the options object', () => {
+        type Options = {
+          '$$use_direction': true;
+          '$$other_option': number;
+        };
 
-      assertType<IsExact<Actual, Expected>>(true);
-    });
-  });
+        type Result = $GetUseDirection<Options>;
 
-  describe('$AsForward', () => {
-    it('should be equivalent to $UseDirection<false>', () => {
-      type Expected = $UseDirection<false>;
-      type Actual = $AsForward;
+        assertType<IsExact<Result, true>>(true);
+      });
 
-      assertType<IsExact<Actual, Expected>>(true);
-    });
-  });
+      it('should return never if the direction option is not present', () => {
+        type Options = {
+          '$$other_option': number;
+        };
 
-  describe('$GetUseDirection', () => {
-    it('should retrieve the direction option value from the options object', () => {
-      type Options = {
-        '$$use_direction': true;
-        '$$other_option': number;
-      };
+        type Result = $GetUseDirection<Options>;
 
-      type Result = $GetUseDirection<Options>;
-
-      assertType<IsExact<Result, true>>(true);
+        assertType<IsExact<Result, never>>(true);
+      });
     });
 
-    it('should return never if the direction option is not present', () => {
-      type Options = {
-        '$$other_option': number;
-      };
+    describe('$PickUseDirection', () => {
+      it('should pick the direction option from the options object', () => {
+        type Options = {
+          '$$use_direction': false;
+          '$$other_option': string;
+        };
 
-      type Result = $GetUseDirection<Options>;
+        type Result = $PickUseDirection<Options>;
 
-      assertType<IsExact<Result, never>>(true);
-    });
-  });
+        type Expected = {
+          '$$use_direction': false;
+        };
 
-  describe('$PickUseDirection', () => {
-    it('should pick the direction option from the options object', () => {
-      type Options = {
-        '$$use_direction': false;
-        '$$other_option': string;
-      };
+        assertType<IsExact<Result, Expected>>(true);
+      });
 
-      type Result = $PickUseDirection<Options>;
+      it('should return an empty object if the direction option is not present', () => {
+        type Options = {
+          '$$other_option': string;
+        };
 
-      type Expected = {
-        '$$use_direction': false;
-      };
+        type Result = $PickUseDirection<Options>;
 
-      assertType<IsExact<Result, Expected>>(true);
-    });
-
-    it('should return an empty object if the direction option is not present', () => {
-      type Options = {
-        '$$other_option': string;
-      };
-
-      type Result = $PickUseDirection<Options>;
-
-      assertType<IsExact<Result, Record<never, never>>>(true);
+        assertType<IsExact<Result, Record<never, never>>>(true);
+      });
     });
   });
 });

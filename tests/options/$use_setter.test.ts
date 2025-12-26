@@ -13,97 +13,103 @@ import type {
 } from '@kz/type-utils/options';
 
 describe('Option - Setter', () => {
-  describe('$UseSetterKey', () => {
-    it('should be "$$use_setter"', () => {
-      type Expected = '$$use_setter';
-      type Actual = $UseSetterKey;
-      assertType<IsExact<Actual, Expected>>(true);
+  describe('directive', () => {
+    describe('$UseSetterKey', () => {
+      it('should be "$$use_setter"', () => {
+        type Expected = '$$use_setter';
+        type Actual = $UseSetterKey;
+        assertType<IsExact<Actual, Expected>>(true);
+      });
+    });
+
+    describe('$UseSetter', () => {
+      it('should create an option with the correct key and value', () => {
+        type SetterOption = $UseSetter<true>;
+        type GetterOption = $UseSetter<false>;
+
+        type ExpectedSetter = {
+          '$$use_setter': true;
+        };
+
+        type ExpectedGetter = {
+          '$$use_setter': false;
+        };
+
+        assertType<IsExact<SetterOption, ExpectedSetter>>(true);
+        assertType<IsExact<GetterOption, ExpectedGetter>>(true);
+      });
     });
   });
 
-  describe('$UseSetter', () => {
-    it('should create an option with the correct key and value', () => {
-      type SetterOption = $UseSetter<true>;
-      type GetterOption = $UseSetter<false>;
+  describe('attributes', () => {
+    describe('$AsInverted', () => {
+      it('should be equivalent to $UseSetter<true>', () => {
+        type Expected = $UseSetter<true>;
+        type Actual = $AsSetter;
 
-      type ExpectedSetter = {
-        '$$use_setter': true;
-      };
+        assertType<IsExact<Actual, Expected>>(true);
+      });
+    });
 
-      type ExpectedGetter = {
-        '$$use_setter': false;
-      };
+    describe('$AsUpright', () => {
+      it('should be equivalent to $UseSetter<false>', () => {
+        type Expected = $UseSetter<false>;
+        type Actual = $AsGetter;
 
-      assertType<IsExact<SetterOption, ExpectedSetter>>(true);
-      assertType<IsExact<GetterOption, ExpectedGetter>>(true);
+        assertType<IsExact<Actual, Expected>>(true);
+      });
     });
   });
 
-  describe('$AsInverted', () => {
-    it('should be equivalent to $UseSetter<true>', () => {
-      type Expected = $UseSetter<true>;
-      type Actual = $AsSetter;
+  describe('utilities', () => {
+    describe('$GetUseSetter', () => {
+      it('should retrieve the setter option value from the options object', () => {
+        type Options = {
+          '$$use_setter': true;
+          '$$other_option': number;
+        };
 
-      assertType<IsExact<Actual, Expected>>(true);
-    });
-  });
+        type Result = $GetUseSetter<Options>;
 
-  describe('$AsUpright', () => {
-    it('should be equivalent to $UseSetter<false>', () => {
-      type Expected = $UseSetter<false>;
-      type Actual = $AsGetter;
+        assertType<IsExact<Result, true>>(true);
+      });
 
-      assertType<IsExact<Actual, Expected>>(true);
-    });
-  });
+      it('should return never if the setter option is not present', () => {
+        type Options = {
+          '$$other_option': number;
+        };
 
-  describe('$GetUseSetter', () => {
-    it('should retrieve the Setter option value from the options object', () => {
-      type Options = {
-        '$$use_setter': true;
-        '$$other_option': number;
-      };
+        type Result = $GetUseSetter<Options>;
 
-      type Result = $GetUseSetter<Options>;
-
-      assertType<IsExact<Result, true>>(true);
+        assertType<IsExact<Result, never>>(true);
+      });
     });
 
-    it('should return never if the Setter option is not present', () => {
-      type Options = {
-        '$$other_option': number;
-      };
+    describe('$PickUseSetter', () => {
+      it('should pick the setter option from the options object', () => {
+        type Options = {
+          '$$use_setter': false;
+          '$$other_option': string;
+        };
 
-      type Result = $GetUseSetter<Options>;
+        type Result = $PickUseSetter<Options>;
 
-      assertType<IsExact<Result, never>>(true);
-    });
-  });
+        type Expected = {
+          '$$use_setter': false;
+        };
 
-  describe('$PickUseSetter', () => {
-    it('should pick the Setter option from the options object', () => {
-      type Options = {
-        '$$use_setter': false;
-        '$$other_option': string;
-      };
+        assertType<IsExact<Result, Expected>>(true);
+      });
 
-      type Result = $PickUseSetter<Options>;
+      it('should return an empty object if the setter option is not present', () => {
+        type Options = {
+          '$$other_option': string;
+        };
 
-      type Expected = {
-        '$$use_setter': false;
-      };
+        type Result = $PickUseSetter<Options>;
 
-      assertType<IsExact<Result, Expected>>(true);
-    });
-
-    it('should return an empty object if the Setter option is not present', () => {
-      type Options = {
-        '$$other_option': string;
-      };
-
-      type Result = $PickUseSetter<Options>;
-
-      assertType<IsExact<Result, Record<never, never>>>(true);
+        assertType<IsExact<Result, Record<never, never>>>(true);
+      });
     });
   });
 });
