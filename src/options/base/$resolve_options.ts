@@ -26,6 +26,7 @@ import type {
 } from '../$use_idents.ts';
 import type { $UseThen, $UseThenKey } from '../$use_then.ts';
 import type { $UseElse, $UseElseKey } from '../$use_else.ts';
+import type { $UseCollection, $UseCollectionKey } from '../$use_collection.ts';
 
 export type $ResolveOptions<Defaults, $Options = Defaults> =
   $MergeOptions<Defaults, $Options> extends infer $Merged
@@ -45,8 +46,9 @@ type InnerResolveOptions<Options> = Options extends $UseInversion<infer Setting>
   : Options extends $UseAsync<infer Setting>
     ? $UseAsync<Setting> & InnerResolveOptions<Omit<Options, $UseAsyncKey>>
   // $UseCollection
-  : Options extends $UseAsync<infer Setting>
-    ? $UseAsync<Setting> & InnerResolveOptions<Omit<Options, $UseAsyncKey>>
+  : Options extends $UseCollection<infer Setting> ?
+      & $UseCollection<Setting>
+      & InnerResolveOptions<Omit<Options, $UseCollectionKey>>
   // $UseDefault
   : Options extends $UseDefault<infer Setting>
     ? $UseDefault<Setting> & InnerResolveOptions<Omit<Options, $UseDefaultKey>>

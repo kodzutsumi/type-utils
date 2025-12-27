@@ -15,7 +15,7 @@ import type {
 describe('Option - Idents', () => {
   describe('directive', () => {
     describe('$UseIdentsKey', () => {
-      it('should be "$$use_Idents"', () => {
+      it('should be "$$use_idents"', () => {
         type Expected = '$$use_idents';
         type Actual = $UseIdentsKey;
 
@@ -24,7 +24,7 @@ describe('Option - Idents', () => {
     });
 
     describe('$UseIdentsTypeKey', () => {
-      it('should be "$$use_Idents"', () => {
+      it('should be "$$use_idents"', () => {
         type Expected = '$$use_idents_type';
         type Actual = $UseIdentsTypeKey;
 

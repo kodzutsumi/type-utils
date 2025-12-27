@@ -6,8 +6,8 @@ const Key = '$$use_required' as const;
 
 export type $UseRequiredKey = typeof Key;
 
-export type $UseRequired<AsImmutable extends boolean = boolean> = {
-  [K in $UseRequiredKey]: AsImmutable;
+export type $UseRequired<AsRequired extends boolean = boolean> = {
+  [K in $UseRequiredKey]: AsRequired;
 };
 
 export type $AsRequired = $UseRequired<true>;

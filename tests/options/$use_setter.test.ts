@@ -42,7 +42,7 @@ describe('Option - Setter', () => {
   });
 
   describe('attributes', () => {
-    describe('$AsInverted', () => {
+    describe('$AsSetter', () => {
       it('should be equivalent to $UseSetter<true>', () => {
         type Expected = $UseSetter<true>;
         type Actual = $AsSetter;
@@ -51,7 +51,7 @@ describe('Option - Setter', () => {
       });
     });
 
-    describe('$AsUpright', () => {
+    describe('$AsGetter', () => {
       it('should be equivalent to $UseSetter<false>', () => {
         type Expected = $UseSetter<false>;
         type Actual = $AsGetter;
