@@ -4,7 +4,11 @@ import type { $FlipOptions } from './$flip_options.ts';
 import type { $MergeOptions } from './$merge_options.ts';
 
 import type { $UseAsync, $UseAsyncKey } from '../$use_async.ts';
-import type { $UseInversion, $UseInversionKey } from '../$use_inversion.ts';
+import type {
+  $AsInverted,
+  $UseInversion,
+  $UseInversionKey,
+} from '../$use_inversion.ts';
 import type { $UseSetter, $UseSetterKey } from '../$use_setter.ts';
 import type { $UseDirection, $UseDirectionKey } from '../$use_direction.ts';
 import type { $UseExclusion, $UseExclusionKey } from '../$use_exclusion.ts';
@@ -25,10 +29,12 @@ import type { $UseElse, $UseElseKey } from '../$use_else.ts';
 
 export type $ResolveOptions<Defaults, $Options = Defaults> =
   $MergeOptions<Defaults, $Options> extends infer $Merged
-    ? $Merged extends { '$$inverted': true }
-      ? InnerResolveOptions<$FlipOptions<Omit<$Merged, '$$inverted'>>>
-    : InnerResolveOptions<Omit<$Merged, '$$inverted'>>
-    : InnerResolveOptions<$Options>;
+    ? $Merged extends $AsInverted
+      ? InnerResolveOptions<$FlipOptions<Omit<$Merged, $UseInversionKey>>>
+    : InnerResolveOptions<Omit<$Merged, $UseInversionKey>>
+    : $Options extends $AsInverted
+      ? InnerResolveOptions<$FlipOptions<Omit<$Options, $UseInversionKey>>>
+    : InnerResolveOptions<Omit<$Options, $UseInversionKey>>;
 
 type InnerResolveOptions<Options> = Options extends $UseInversion<infer Setting>
   // $UseInversion

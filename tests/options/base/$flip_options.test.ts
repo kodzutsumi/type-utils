@@ -122,7 +122,8 @@ describe('Base - $FlipOptions', () => {
 
     assertType<IsExact<$ElseResult, $ThenResult>>(true);
   });
-  
+
+  // $Then and $Else combined
   it('should flip $Then to $Else and vice versa', () => {
     type $ElseResult = $FlipOptions<$Else<string> & $Then<number>>;
     type $ThenResult = $Then<string> & $Else<number>;

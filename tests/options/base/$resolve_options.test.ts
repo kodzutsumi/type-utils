@@ -1,12 +1,39 @@
-//// deno-lint-ignore-file no-boolean-literal-for-arguments
+// deno-lint-ignore-file no-boolean-literal-for-arguments
 
-//TODO(@ebntly) After fully implmenting $ResolveOptions, enable these tests
+import { describe, it } from '@std/testing/bdd';
+import { assertType, type IsExact } from '@std/testing/types';
 
-// import { describe, it } from '@std/testing/bdd';
-// import { assertType, type IsExact } from '@std/testing/types';
+import type {
+  $AsAsync,
+  $AsInverted,
+  $AsLoose,
+  $AsStrict,
+  $AsSync,
+  $AsUpright,
+  $ResolveOptions,
+} from '@kz/type-utils/options';
 
-// import type { $ResolveOptions } from '@kz/type-utils/options';
+describe('Base - $ResolveOptions', () => {
+  it('should resolve options, merging sets together', () => {
+    type $Defaults = $AsSync & $AsStrict;
 
-// describe('Base - $ResolveOptions', () => {
+    type $Options = $AsAsync;
 
-// });
+    type $Resolved = $ResolveOptions<$Defaults, $Options>;
+
+    type $ExpectedResolved = $AsAsync & $AsStrict;
+
+    assertType<IsExact<$Resolved, $ExpectedResolved>>(true);
+  });
+  it('should invert options', () => {
+    type $Defaults = $AsSync & $AsStrict & $AsUpright;
+
+    type $Options = $AsAsync & $AsInverted;
+
+    type $Resolved = $ResolveOptions<$Defaults, $Options>;
+
+    type $ExpectedResolved = $AsSync & $AsLoose;
+
+    assertType<IsExact<$Resolved, $ExpectedResolved>>(true);
+  });
+});

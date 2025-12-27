@@ -1,11 +1,24 @@
-//// deno-lint-ignore-file no-boolean-literal-for-arguments
+// deno-lint-ignore-file no-boolean-literal-for-arguments
 
-//TODO(@ebntly) After fully implmenting $MergeOptions, enable these tests
-// import { describe, it } from '@std/testing/bdd';
-// import { assertType, type IsExact } from '@std/testing/types';
+import { describe, it } from '@std/testing/bdd';
+import { assertType, type IsExact } from '@std/testing/types';
 
-// import type { $MergeOptions } from '@kz/type-utils/options';
+import type {
+  $AsAsync,
+  $AsRequired,
+  $AsStrict,
+  $MergeOptions,
+} from '@kz/type-utils/options';
 
-// describe('Base - $MergeOptions', () => {
+describe('Base - $MergeOptions', () => {
+  it('should merge the keys of set 2 that are present in set 1', () => {
+    type $OptionsA = $AsAsync & $AsStrict;
+    type $OptionsB = $AsStrict & $AsRequired;
 
-// });
+    type $MergedOptions = $MergeOptions<$OptionsA, $OptionsB>;
+
+    type $ExpectedMergedOptions = $AsAsync & $AsStrict;
+
+    assertType<IsExact<$MergedOptions, $ExpectedMergedOptions>>(true);
+  });
+});

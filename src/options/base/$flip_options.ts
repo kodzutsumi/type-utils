@@ -2,7 +2,7 @@
 
 import type { $UseAsync, $UseAsyncKey } from '../$use_async.ts';
 import type { $UseDirection, $UseDirectionKey } from '../$use_direction.ts';
-import type { $GetUseElse, $UseElse, $UseElseKey } from '../$use_else.ts';
+import type { $UseElse, $UseElseKey } from '../$use_else.ts';
 import type { $UseExclusion, $UseExclusionKey } from '../$use_exclusion.ts';
 import type { $UseFilter, $UseFilterKey } from '../$use_filter.ts';
 import type { $UseImmutable, $UseImmutableKey } from '../$use_immutable.ts';
@@ -10,8 +10,8 @@ import type { $UseInversion, $UseInversionKey } from '../$use_inversion.ts';
 import type { $UseRequired, $UseRequiredKey } from '../$use_required.ts';
 import type { $UseSafe, $UseSafeKey } from '../$use_safe.ts';
 import type { $UseSetter, $UseSetterKey } from '../$use_setter.ts';
-import type { $AsStrict, $UseStrict, $UseStrictKey } from '../$use_strict.ts';
-import type { $GetUseThen, $UseThen, $UseThenKey } from '../$use_then.ts';
+import type { $UseStrict, $UseStrictKey } from '../$use_strict.ts';
+import type { $UseThen, $UseThenKey } from '../$use_then.ts';
 import type { $Options } from './$options.ts';
 
 export type $FlipOptions<Options extends $Options> = Options extends // $UseInversion
