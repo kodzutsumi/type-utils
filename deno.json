@@ -1,0 +1,124 @@
+{
+  "name": "@kz/type-utils",
+  "exports": {
+    "./options": "./src/options/mod.ts"
+  },
+  "version": "0.0.1",
+  "importMap": "./import_map.json",
+  "tasks": {
+    "test": {
+      "description": "Run tests for all packages",
+      "command": "deno test --allow-all --coverage=coverage --trace-leaks --clean"
+    },
+    "test:docs": {
+      "description": "Run tests for all packages including docs",
+      "command": "deno test --allow-all --doc --coverage=coverage --trace-leaks --clean"
+    },
+    "cov": {
+      "description": "Run coverage analysis on all packages",
+      "command": "deno coverage --ignore=\"**/*.fixture.ts,.github\" coverage/"
+    },
+    "cov:gen": {
+      "description": "Generate coverage report for all packages",
+      "command": "deno task cov --lcov --output=cov.lcov"
+    },
+    "cov:view": {
+      "description": "View coverage report for all packages",
+      "command": "deno task cov --html"
+    },
+    "cov:all": {
+      "description": "Run all coverage tasks",
+      "command": "deno task cov && deno task cov:gen && deno task cov:view"
+    },
+    "checks": {
+      "description": "Run all checks for all packages",
+      "command": "deno task lint:all && deno fmt && deno fmt --check && deno task test"
+    },
+    "pre-commit": {
+      "description": "Run pre-commit checks",
+      "command": "deno task checks && deno task docs && deno publish --dry-run --allow-dirty"
+    },
+    "lint:copyright": {
+      "description": "Check for license headers",
+      "command": "deno run --allow-read --allow-write ./build/copyright_files.ts"
+    },
+    "lint:exports": {
+      "description": "Check for exports in all packages",
+      "command": "deno run --allow-read ./build/export_star_check.ts"
+    },
+    "lint:clean": {
+      "description": "Clean up all packages",
+      "command": "deno run --allow-read --allow-write ./build/clean_files.ts"
+    },
+    "lint:code": {
+      "description": "Run code linter on all packages",
+      "command": "deno lint --config ./deno.json"
+    },
+    "lint:all": {
+      "description": "Run all linters on all packages",
+      "command": "deno task lint:code && deno task lint:exports && deno task lint:copyright && deno task lint:clean"
+    },
+    "docs": {
+      "description": "Generate documentation for all packages",
+      "command": "deno doc --html --output=docs --name='Type Utils' ./src/*/mod.ts"
+    }
+  },
+  "lint": {
+    "rules": {
+      "tags": [
+        "recommended"
+      ],
+      "include": [
+        "ban-untagged-todo",
+        "camelcase",
+        "default-param-last",
+        "eqeqeq",
+        "explicit-function-return-type",
+        "no-throw-literal",
+        "verbatim-module-syntax",
+        "prefer-ascii",
+        "no-undef",
+        "no-sync-fn-in-async-fn",
+        "no-sparse-arrays",
+        "no-self-compare",
+        "no-non-null-assertion",
+        "no-non-null-asserted-optional-chain",
+        "no-external-import",
+        "no-eval",
+        "no-const-assign",
+        "no-boolean-literal-for-arguments",
+        "no-await-in-loop",
+        "guard-for-in",
+        "explicit-module-boundary-types"
+      ]
+    }
+  },
+  "fmt": {
+    "indentWidth": 2,
+    "lineWidth": 80,
+    "proseWrap": "preserve",
+    "useTabs": false,
+    "singleQuote": true,
+    "semiColons": true
+  },
+  "exclude": [
+    ".git",
+    "cov",
+    "coverage",
+    "testdata",
+    "docs"
+  ],
+  "publish": {
+    "include": [
+      "README.md",
+      "LICENSE",
+      "**/*.ts",
+      "deno.json",
+      "deno.lock",
+      "**/*.json"
+    ],
+    "exclude": [
+      "**/*.test.ts"
+    ]
+  }
+}
