@@ -1,7 +1,10 @@
 {
   "name": "@kz/type-utils",
   "exports": {
-    "./options": "./src/options/mod.ts"
+    "./options": "./src/options/mod.ts",
+    "./logic": "./src/logic/mod.ts",
+    "./lint": "./src/lint/mod.ts",
+    "./types": "./src/types/mod.ts"
   },
   "version": "0.0.1",
   "importMap": "./import_map.json",

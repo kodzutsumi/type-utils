@@ -7,6 +7,9 @@
     "@std/testing/types": "jsr:@std/testing@^1.0.16/types",
 
     "@kz/type-utils": "jsr:@kz/type-utils@^0.0.1",
-    "@kz/type-utils/options": "jsr:@kz/type-utils@^0.0.1/options"
+    "@kz/type-utils/options": "jsr:@kz/type-utils@^0.0.1/options",
+    "@kz/type-utils/logic": "jsr:@kz/type-utils@^0.0.1/logic",
+    "@kz/type-utils/lint": "jsr:@kz/type-utils@^0.0.1/lint",
+    "@kz/type-utils/types": "jsr:@kz/type-utils@^0.0.1/types"
   }
 }

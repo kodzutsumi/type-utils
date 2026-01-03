@@ -11,6 +11,8 @@ import type {
   $AsSync,
   $AsUpright,
   $ResolveOptions,
+  $Then,
+  $Else,
 } from '@kz/type-utils/options';
 
 describe('Base - $ResolveOptions', () => {
@@ -25,6 +27,7 @@ describe('Base - $ResolveOptions', () => {
 
     assertType<IsExact<$Resolved, $ExpectedResolved>>(true);
   });
+
   it('should invert options', () => {
     type $Defaults = $AsSync & $AsStrict & $AsUpright;
 
@@ -35,5 +38,13 @@ describe('Base - $ResolveOptions', () => {
     type $ExpectedResolved = $AsSync & $AsLoose;
 
     assertType<IsExact<$Resolved, $ExpectedResolved>>(true);
+  });
+
+  it('should invert $Then/$Else options', () => {
+    type $Defaults = $Then<string> & $Else<number> & $AsInverted;
+    type $Options = $Then<boolean>;
+    type $Resolved = $ResolveOptions<$Defaults, $Options>;
+
+    assertType<IsExact<$Resolved, $Then<number> & $Else<boolean>>>(true);
   });
 });
