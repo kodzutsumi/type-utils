@@ -25,6 +25,8 @@ export type {
   $UseCollectionKey,
   $UseCollectionTarget,
 } from './$use_collection.ts';
+// $UseCondition
+export type { $Condition, $UseCondition } from './$use_condition.ts';
 // $UseDefault
 export type {
   $DefaultTo,

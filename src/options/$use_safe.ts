@@ -16,8 +16,10 @@ export type $AsUnsafe = $UseSafe<false>;
 
 export type $GetUseSafe<
   Options extends Record<string, unknown>,
-> = $GetOption<$UseSafeKey, Options>;
+  Default extends boolean = false,
+> = $GetOption<Options, $UseSafeKey, Default>;
 
 export type $PickUseSafe<
   Options extends Record<string, unknown>,
-> = $PickOption<$UseSafeKey, Options>;
+  Default extends boolean = false,
+> = $PickOption<Options, $UseSafeKey, Default>;

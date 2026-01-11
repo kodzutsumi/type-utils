@@ -14,8 +14,10 @@ export type $Then<Type extends unknown = unknown> = $UseThen<Type>;
 
 export type $GetUseThen<
   Options extends Record<string, unknown>,
-> = $GetOption<$UseThenKey, Options>;
+  Default extends unknown = true,
+> = $GetOption<Options, $UseThenKey, Default>;
 
 export type $PickUseThen<
   Options extends Record<string, unknown>,
-> = $PickOption<$UseThenKey, Options>;
+  Default extends unknown = true,
+> = $PickOption<Options, $UseThenKey, Default>;

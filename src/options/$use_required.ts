@@ -16,8 +16,10 @@ export type $AsOptional = $UseRequired<false>;
 
 export type $GetUseRequired<
   Options extends Record<string, unknown>,
-> = $GetOption<$UseRequiredKey, Options>;
+  Default extends boolean = false,
+> = $GetOption<Options, $UseRequiredKey, Default>;
 
 export type $PickUseRequired<
   Options extends Record<string, unknown>,
-> = $PickOption<$UseRequiredKey, Options>;
+  Default extends boolean = false,
+> = $PickOption<Options, $UseRequiredKey, Default>;

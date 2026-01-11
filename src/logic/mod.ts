@@ -1,7 +1,7 @@
 // Copyright 2020 - present integereleven. All rights reserved. MIT license.
 
 /**
- * @module Options
+ * @module Logic
  */
 
 export type { And } from './and.ts';

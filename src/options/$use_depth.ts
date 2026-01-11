@@ -36,11 +36,13 @@ export type $DecrementDepth<$Options> = $Options extends $UseDepth
 
 export type $GetUseDepth<
   Options extends Record<string, unknown>,
-> = $GetOption<$UseDepthKey, Options>;
+  Default extends boolean = false,
+> = $GetOption<Options, $UseDepthKey, Default>;
 
 export type $PickUseDepth<
   Options extends Record<string, unknown>,
-> = $PickOption<$UseDepthKey, Options>;
+  Default extends boolean = false,
+> = $PickOption<Options, $UseDepthKey, Default>;
 
 export type $IsDeep<
   $OptsObject,

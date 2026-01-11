@@ -79,14 +79,14 @@ describe('Option - Collection', () => {
         assertType<IsExact<Result, 'collection'>>(true);
       });
 
-      it('should return never if the collection option is not present', () => {
+      it("should return 'collection' if the collection option is not present", () => {
         type Options = {
           '$$other_option': number;
         };
 
         type Result = $GetUseCollection<Options>;
 
-        assertType<IsExact<Result, never>>(true);
+        assertType<IsExact<Result, 'collection'>>(true);
       });
     });
 
@@ -106,14 +106,14 @@ describe('Option - Collection', () => {
         assertType<IsExact<Result, Expected>>(true);
       });
 
-      it('should return an empty object if the collection option is not present', () => {
+      it('should default to $CollectAll if the collection option is not present', () => {
         type Options = {
           '$$other_option': string;
         };
 
         type Result = $PickUseCollection<Options>;
 
-        assertType<IsExact<Result, Record<never, never>>>(true);
+        assertType<IsExact<Result, $CollectAll>>(true);
       });
     });
   });

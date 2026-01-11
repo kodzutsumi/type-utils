@@ -4,3 +4,4 @@
  * @module Types
  */
 
+export type { Any } from './any.ts';

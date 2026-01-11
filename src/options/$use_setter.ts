@@ -15,8 +15,10 @@ export type $AsGetter = $UseSetter<false>;
 
 export type $GetUseSetter<
   Options extends Record<string, unknown>,
-> = $GetOption<$UseSetterKey, Options>;
+  Default extends boolean = false,
+> = $GetOption<Options, $UseSetterKey, Default>;
 
 export type $PickUseSetter<
   Options extends Record<string, unknown>,
-> = $PickOption<$UseSetterKey, Options>;
+  Default extends boolean = false,
+> = $PickOption<Options, $UseSetterKey, Default>;

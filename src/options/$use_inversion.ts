@@ -16,8 +16,10 @@ export type $AsUpright = $UseInversion<false>;
 
 export type $GetUseInversion<
   Options extends Record<string, unknown>,
-> = $GetOption<$UseInversionKey, Options>;
+  Default extends boolean = false,
+> = $GetOption<Options, $UseInversionKey, Default>;
 
 export type $PickUseInversion<
   Options extends Record<string, unknown>,
-> = $PickOption<$UseInversionKey, Options>;
+  Default extends boolean = false,
+> = $PickOption<Options, $UseInversionKey, Default>;

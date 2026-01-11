@@ -75,14 +75,14 @@ describe('Option - Filter', () => {
         assertType<IsExact<Result, true>>(true);
       });
 
-      it('should return never if the filter option is not present', () => {
+      it('should return false if the filter option is not present', () => {
         type Options = {
           '$$other_option': number;
         };
 
         type Result = $GetUseFilter<Options>;
 
-        assertType<IsExact<Result, never>>(true);
+        assertType<IsExact<Result, false>>(true);
       });
     });
 
@@ -102,14 +102,14 @@ describe('Option - Filter', () => {
         assertType<IsExact<Result, Expected>>(true);
       });
 
-      it('should return an empty object if the filter option is not present', () => {
+      it('should default to $AsPredicate if the filter option is not present', () => {
         type Options = {
           '$$other_option': string;
         };
 
         type Result = $PickUseFilter<Options>;
 
-        assertType<IsExact<Result, Record<never, never>>>(true);
+        assertType<IsExact<Result, $AsPredicate>>(true);
       });
     });
   });

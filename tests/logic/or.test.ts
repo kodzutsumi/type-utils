@@ -56,7 +56,7 @@ describe('Logic - Or', () => {
     });
   });
 
-  describe('with both $Then Or $Else options', () => {
+  describe('with both $Then and $Else options', () => {
     it('should return the Then type for Or<true, true, $Then<Type> & $Else<Type>>', () => {
       type Actual = Or<true, true, $Then<string> & $Else<number>>;
       type Expected = string;

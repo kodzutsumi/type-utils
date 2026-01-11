@@ -4,7 +4,7 @@ import type { Permit } from '@kz/type-utils/lint';
 
 import type { Primitive } from './primitive.ts';
 
-export type Builtin = 
+export type Builtin =
   | Primitive
   | Permit<'Function', 'AnyCallable'>
   | Date

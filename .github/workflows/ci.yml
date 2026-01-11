@@ -19,7 +19,7 @@ jobs:
         os:
           - ubuntu-22.04
           - windows-2022
-          - macOS-12
+          - macOS-14
         deno:
           - v2.6.3
           - v2.x

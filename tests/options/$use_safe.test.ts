@@ -75,14 +75,14 @@ describe('Option - Safe', () => {
         assertType<IsExact<Result, true>>(true);
       });
 
-      it('should return never if the safe option is not present', () => {
+      it('should return false if the safe option is not present', () => {
         type Options = {
           '$$other_option': number;
         };
 
         type Result = $GetUseSafe<Options>;
 
-        assertType<IsExact<Result, never>>(true);
+        assertType<IsExact<Result, false>>(true);
       });
     });
 
@@ -102,14 +102,14 @@ describe('Option - Safe', () => {
         assertType<IsExact<Result, Expected>>(true);
       });
 
-      it('should return an empty object if the safe option is not present', () => {
+      it('should default to a $AsUnsafe object if the safe option is not present', () => {
         type Options = {
           '$$other_option': string;
         };
 
         type Result = $PickUseSafe<Options>;
 
-        assertType<IsExact<Result, Record<never, never>>>(true);
+        assertType<IsExact<Result, $AsUnsafe>>(true);
       });
     });
   });

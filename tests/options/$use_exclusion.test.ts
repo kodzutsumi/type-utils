@@ -75,14 +75,14 @@ describe('Option - Exclusion', () => {
         assertType<IsExact<Result, true>>(true);
       });
 
-      it('should return never if the exclusion option is not present', () => {
+      it('should return false if the exclusion option is not present', () => {
         type Options = {
           '$$other_option': number;
         };
 
         type Result = $GetUseExclusion<Options>;
 
-        assertType<IsExact<Result, never>>(true);
+        assertType<IsExact<Result, false>>(true);
       });
     });
 
@@ -102,14 +102,14 @@ describe('Option - Exclusion', () => {
         assertType<IsExact<Result, Expected>>(true);
       });
 
-      it('should return an empty object if the exclusion option is not present', () => {
+      it('should default to $AsIncluded if the exclusion option is not present', () => {
         type Options = {
           '$$other_option': string;
         };
 
         type Result = $PickUseExclusion<Options>;
 
-        assertType<IsExact<Result, Record<never, never>>>(true);
+        assertType<IsExact<Result, $AsIncluded>>(true);
       });
     });
   });

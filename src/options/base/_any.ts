@@ -1,3 +1,5 @@
 // Copyright 2020 - present integereleven. All rights reserved. MIT license.
 
-export type Nil = null | undefined;
+// deno-lint-ignore-file no-explicit-any
+
+export type $AnyType = any;

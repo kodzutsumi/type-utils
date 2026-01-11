@@ -16,8 +16,10 @@ export type $AsSync = $UseAsync<false>;
 
 export type $GetUseAsync<
   Options extends Record<string, unknown>,
-> = $GetOption<$UseAsyncKey, Options>;
+  Default extends boolean = false,
+> = $GetOption<Options, $UseAsyncKey, Default>;
 
 export type $PickUseAsync<
   Options extends Record<string, unknown>,
-> = $PickOption<$UseAsyncKey, Options>;
+  Default extends boolean = false,
+> = $PickOption<Options, $UseAsyncKey, Default>;

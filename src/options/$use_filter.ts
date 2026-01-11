@@ -7,7 +7,7 @@ const Key = '$$use_filter' as const;
 export type $UseFilterKey = typeof Key;
 
 export type $UseFilter<AsFilter extends boolean = boolean> = {
-  [K in $UseFilterKey]: AsFilter;
+  [Key]: AsFilter;
 };
 
 export type $AsFilter = $UseFilter<true>;
@@ -16,8 +16,10 @@ export type $AsPredicate = $UseFilter<false>;
 
 export type $GetUseFilter<
   Options extends Record<string, unknown>,
-> = $GetOption<$UseFilterKey, Options>;
+  Default extends boolean = false,
+> = $GetOption<Options, $UseFilterKey, Default>;
 
 export type $PickUseFilter<
   Options extends Record<string, unknown>,
-> = $PickOption<$UseFilterKey, Options>;
+  Default extends boolean = false,
+> = $PickOption<Options, $UseFilterKey, Default>;

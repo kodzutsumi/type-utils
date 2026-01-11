@@ -16,8 +16,10 @@ export type $AsIncluded = $UseExclusion<false>;
 
 export type $GetUseExclusion<
   Options extends Record<string, unknown>,
-> = $GetOption<$UseExclusionKey, Options>;
+  Default extends boolean = false,
+> = $GetOption<Options, $UseExclusionKey, Default>;
 
 export type $PickUseExclusion<
   Options extends Record<string, unknown>,
-> = $PickOption<$UseExclusionKey, Options>;
+  Default extends boolean = false,
+> = $PickOption<Options, $UseExclusionKey, Default>;
