@@ -86,14 +86,14 @@ describe('Option - Default', () => {
         assertType<IsExact<Result, Expected>>(true);
       });
 
-      it('should return an empty object if the default option is not present', () => {
+      it('should default to $DefaultTo<never> if the default option is not present', () => {
         type Options = {
           '$$other_option': string;
         };
 
         type Result = $PickUseDefault<Options>;
 
-        assertType<IsExact<Result, Record<never, never>>>(true);
+        assertType<IsExact<Result, $DefaultTo<never>>>(true);
       });
     });
   });

@@ -59,14 +59,14 @@ describe('Option - Else', () => {
         assertType<IsExact<Result, string>>(true);
       });
 
-      it('should return never if the else option is not present', () => {
+      it('should return false if the else option is not present', () => {
         type Options = {
           '$$other_option': number;
         };
 
         type Result = $GetUseElse<Options>;
 
-        assertType<IsExact<Result, never>>(true);
+        assertType<IsExact<Result, false>>(true);
       });
     });
 
@@ -86,14 +86,14 @@ describe('Option - Else', () => {
         assertType<IsExact<Result, Expected>>(true);
       });
 
-      it('should return an empty object if the else option is not present', () => {
+      it('should default to $Else<false> if the else option is not present', () => {
         type Options = {
           '$$other_option': string;
         };
 
         type Result = $PickUseElse<Options>;
 
-        assertType<IsExact<Result, Record<never, never>>>(true);
+        assertType<IsExact<Result, $Else<false>>>(true);
       });
     });
   });

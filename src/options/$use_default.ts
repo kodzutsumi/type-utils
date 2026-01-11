@@ -14,8 +14,10 @@ export type $DefaultTo<Type extends unknown = unknown> = $UseDefault<Type>;
 
 export type $GetUseDefault<
   Options extends Record<string, unknown>,
-> = $GetOption<$UseDefaultKey, Options>;
+  Default extends unknown = never,
+> = $GetOption<Options, $UseDefaultKey, Default>;
 
 export type $PickUseDefault<
   Options extends Record<string, unknown>,
-> = $PickOption<$UseDefaultKey, Options>;
+  Default extends unknown = never,
+> = $PickOption<Options, $UseDefaultKey, Default>;

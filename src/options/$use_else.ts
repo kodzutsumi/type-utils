@@ -14,8 +14,10 @@ export type $Else<Type extends unknown = unknown> = $UseElse<Type>;
 
 export type $GetUseElse<
   Options extends Record<string, unknown>,
-> = $GetOption<$UseElseKey, Options>;
+  Default extends boolean = false,
+> = $GetOption<Options, $UseElseKey, Default>;
 
 export type $PickUseElse<
   Options extends Record<string, unknown>,
-> = $PickOption<$UseElseKey, Options>;
+  Default extends boolean = false,
+> = $PickOption<Options, $UseElseKey, Default>;

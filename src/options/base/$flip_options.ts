@@ -1,6 +1,7 @@
 // Copyright 2020 - present integereleven. All rights reserved. MIT license.
 
 import type { $UseAsync, $UseAsyncKey } from '../$use_async.ts';
+import type { $Condition, $UseCondition } from '../$use_condition.ts';
 import type { $UseDirection, $UseDirectionKey } from '../$use_direction.ts';
 import type { $UseElse, $UseElseKey } from '../$use_else.ts';
 import type { $UseExclusion, $UseExclusionKey } from '../$use_exclusion.ts';
@@ -22,6 +23,13 @@ $UseInversion<infer Value> ?
   : Options extends $UseAsync<infer Value> ?
       & (Value extends true ? $UseAsync<false> : $UseAsync<true>)
       & $FlipOptions<Omit<Options, $UseAsyncKey>>
+  // $UseCondition
+  : Options extends $UseCondition<infer Then, infer Else> ?
+      & $Condition<
+        Else,
+        Then
+      >
+      & $FlipOptions<Omit<$Options, $UseThenKey | $UseElseKey>>
   // $UseDirection
   : Options extends $UseDirection<infer Value> ?
       & (Value extends true ? $UseDirection<false> : $UseDirection<true>)
@@ -29,6 +37,7 @@ $UseInversion<infer Value> ?
   // $UseElse
   : Options extends $UseElse<infer Value> ?
       & $UseThen<Value>
+      & $UseElse<true>
       & $FlipOptions<Omit<Options, $UseElseKey>>
   // $UseExclusion
   : Options extends $UseExclusion<infer Value> ?
@@ -60,6 +69,7 @@ $UseInversion<infer Value> ?
       & $FlipOptions<Omit<Options, $UseStrictKey>>
   // $UseThen
   : Options extends $UseThen<infer Value> ?
+      & $UseThen<false>
       & $UseElse<Value>
       & $FlipOptions<Omit<Options, $UseThenKey>>
   // default

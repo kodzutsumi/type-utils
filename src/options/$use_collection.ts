@@ -25,8 +25,10 @@ export type $CollectValues = $UseCollection<'values'>;
 
 export type $GetUseCollection<
   Options extends Record<string, unknown>,
-> = $GetOption<$UseCollectionKey, Options>;
+  Default extends $UseCollectionTarget = 'collection',
+> = $GetOption<Options, $UseCollectionKey, Default>;
 
 export type $PickUseCollection<
   Options extends Record<string, unknown>,
-> = $PickOption<$UseCollectionKey, Options>;
+  Default extends $UseCollectionTarget = 'collection',
+> = $PickOption<Options, $UseCollectionKey, Default>;

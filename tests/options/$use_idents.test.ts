@@ -104,7 +104,7 @@ describe('Option - Idents', () => {
           assertType<IsExact<Result, keyof TestObject>>(true);
         });
 
-        it('should return never if the idents option is not present', () => {
+        it('should return PropertyKey if the idents option is not present', () => {
           type TestObject = { a: number; b: string };
           type Options = {
             '$$use_idents_type': TestObject;
@@ -113,7 +113,7 @@ describe('Option - Idents', () => {
 
           type Result = $GetUseIdents<Options>;
 
-          assertType<IsExact<Result, never>>(true);
+          assertType<IsExact<Result, PropertyKey>>(true);
         });
       });
 
@@ -134,7 +134,7 @@ describe('Option - Idents', () => {
           assertType<IsExact<Result, Expected>>(true);
         });
 
-        it('should return an empty object if the idents option is not present', () => {
+        it('should default to PropertyKey if the idents option is not present', () => {
           type TestObject = { a: number; b: string };
           type Options = {
             '$$use_idents_type': keyof TestObject;
@@ -143,7 +143,7 @@ describe('Option - Idents', () => {
 
           type Result = $PickUseIdents<Options>;
 
-          assertType<IsExact<Result, Record<never, never>>>(true);
+          assertType<IsExact<Result, { '$$use_idents': PropertyKey }>>(true);
         });
       });
     });
@@ -221,7 +221,7 @@ describe('Option - Idents', () => {
           assertType<IsExact<Result, keyof TestObject>>(true);
         });
 
-        it('should return never if the idents option is not present', () => {
+        it('should return PropertyKey if the idents option is not present', () => {
           type TestObject = [string, number];
           type Options = {
             '$$use_idents_type': TestObject;
@@ -230,7 +230,7 @@ describe('Option - Idents', () => {
 
           type Result = $GetUseIdents<Options>;
 
-          assertType<IsExact<Result, never>>(true);
+          assertType<IsExact<Result, PropertyKey>>(true);
         });
       });
 
@@ -251,7 +251,7 @@ describe('Option - Idents', () => {
           assertType<IsExact<Result, Expected>>(true);
         });
 
-        it('should return an empty object if the idents option is not present', () => {
+        it('should default to PropertyKey if the idents option is not present', () => {
           type TestObject = [string, number];
           type Options = {
             '$$use_idents_type': keyof TestObject;
@@ -260,7 +260,7 @@ describe('Option - Idents', () => {
 
           type Result = $PickUseIdents<Options>;
 
-          assertType<IsExact<Result, Record<never, never>>>(true);
+          assertType<IsExact<Result, { '$$use_idents': PropertyKey }>>(true);
         });
       });
     });

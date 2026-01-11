@@ -26,8 +26,10 @@ export type $IdentsOf<
 
 export type $GetUseIdents<
   Options extends Record<string, unknown>,
-> = $GetOption<$UseIdentsKey, Options>;
+  Default extends PropertyKey = PropertyKey,
+> = $GetOption<Options, $UseIdentsKey, Default>;
 
 export type $PickUseIdents<
   Options extends Record<string, unknown>,
-> = $PickOption<$UseIdentsKey, Options>;
+  Default extends PropertyKey = PropertyKey,
+> = $PickOption<Options, $UseIdentsKey, Default>;

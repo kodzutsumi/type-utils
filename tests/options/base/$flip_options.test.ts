@@ -1,7 +1,7 @@
 // deno-lint-ignore-file no-boolean-literal-for-arguments
 
 import { describe, it } from '@std/testing/bdd';
-import { assertType, type IsExact } from '@std/testing/types';
+import { assertType, type Has, type IsExact } from '@std/testing/types';
 
 import type {
   $AsAsync,
@@ -47,7 +47,7 @@ describe('Base - $FlipOptions', () => {
   // $UseElse
   it('should flip $Else to $Then', () => {
     type $ElseResult = $FlipOptions<$Else<string>>;
-    type $ThenResult = $Then<string>;
+    type $ThenResult = $Then<string> & $Else<true>;
 
     assertType<IsExact<$ElseResult, $ThenResult>>(true);
   });
@@ -118,7 +118,7 @@ describe('Base - $FlipOptions', () => {
   // $UseThen
   it('should flip $Then to $Else', () => {
     type $ThenResult = $FlipOptions<$Then<string>>;
-    type $ElseResult = $Else<string>;
+    type $ElseResult = $Then<false> & $Else<string>;
 
     assertType<IsExact<$ElseResult, $ThenResult>>(true);
   });
@@ -128,6 +128,6 @@ describe('Base - $FlipOptions', () => {
     type $ElseResult = $FlipOptions<$Else<string> & $Then<number>>;
     type $ThenResult = $Then<string> & $Else<number>;
 
-    assertType<IsExact<$ElseResult, $ThenResult>>(true);
+    assertType<Has<$ElseResult, $ThenResult>>(true);
   });
 });

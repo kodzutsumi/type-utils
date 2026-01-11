@@ -75,14 +75,14 @@ describe('Option - Immutable', () => {
         assertType<IsExact<Result, true>>(true);
       });
 
-      it('should return never if the immutable option is not present', () => {
+      it('should return false if the immutable option is not present', () => {
         type Options = {
           '$$other_option': number;
         };
 
         type Result = $GetUseImmutable<Options>;
 
-        assertType<IsExact<Result, never>>(true);
+        assertType<IsExact<Result, false>>(true);
       });
     });
 
@@ -102,14 +102,14 @@ describe('Option - Immutable', () => {
         assertType<IsExact<Result, Expected>>(true);
       });
 
-      it('should return an empty object if the immutable option is not present', () => {
+      it('should default to a $AsMutable object if the immutable option is not present', () => {
         type Options = {
           '$$other_option': string;
         };
 
         type Result = $PickUseImmutable<Options>;
 
-        assertType<IsExact<Result, Record<never, never>>>(true);
+        assertType<IsExact<Result, $AsMutable>>(true);
       });
     });
   });

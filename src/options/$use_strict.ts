@@ -16,8 +16,10 @@ export type $AsLoose = $UseStrict<false>;
 
 export type $GetUseStrict<
   Options extends Record<string, unknown>,
-> = $GetOption<$UseStrictKey, Options>;
+  Default extends boolean = false,
+> = $GetOption<Options, $UseStrictKey, Default>;
 
 export type $PickUseStrict<
   Options extends Record<string, unknown>,
-> = $PickOption<$UseStrictKey, Options>;
+  Default extends boolean = false,
+> = $PickOption<Options, $UseStrictKey, Default>;

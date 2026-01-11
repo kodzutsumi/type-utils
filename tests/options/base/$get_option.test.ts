@@ -12,7 +12,7 @@ describe('Base - $GetOption', () => {
       $$optionB: number;
     };
 
-    type Result = $GetOption<'$$optionA', Options>;
+    type Result = $GetOption<Options, '$$optionA', number>;
 
     assertType<IsExact<Result, string>>(true);
   });
@@ -23,8 +23,8 @@ describe('Base - $GetOption', () => {
       $$optionB: number;
     };
 
-    type Result = $GetOption<'$$optionC', Options>;
+    type Result = $GetOption<Options, '$$optionC', string>;
 
-    assertType<IsExact<Result, never>>(true);
+    assertType<IsExact<Result, string>>(true);
   });
 });

@@ -75,14 +75,14 @@ describe('Option - Async', () => {
         assertType<IsExact<Result, true>>(true);
       });
 
-      it('should return never if the async option is not present', () => {
+      it('should return false if the async option is not present', () => {
         type Options = {
           '$$other_option': number;
         };
 
         type Result = $GetUseAsync<Options>;
 
-        assertType<IsExact<Result, never>>(true);
+        assertType<IsExact<Result, false>>(true);
       });
     });
 
@@ -102,14 +102,14 @@ describe('Option - Async', () => {
         assertType<IsExact<Result, Expected>>(true);
       });
 
-      it('should return an empty object if the async option is not present', () => {
+      it('should default to $AsSync if the async option is not present', () => {
         type Options = {
           '$$other_option': string;
         };
 
         type Result = $PickUseAsync<Options>;
 
-        assertType<IsExact<Result, Record<never, never>>>(true);
+        assertType<IsExact<Result, $AsSync>>(true);
       });
     });
   });

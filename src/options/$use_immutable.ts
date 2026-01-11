@@ -16,8 +16,10 @@ export type $AsMutable = $UseImmutable<false>;
 
 export type $GetUseImmutable<
   Options extends Record<string, unknown>,
-> = $GetOption<$UseImmutableKey, Options>;
+  Default extends boolean = false,
+> = $GetOption<Options, $UseImmutableKey, Default>;
 
 export type $PickUseImmutable<
   Options extends Record<string, unknown>,
-> = $PickOption<$UseImmutableKey, Options>;
+  Default extends boolean = false,
+> = $PickOption<Options, $UseImmutableKey, Default>;

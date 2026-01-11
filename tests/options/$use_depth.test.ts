@@ -93,14 +93,14 @@ describe('Option - Depth', () => {
         assertType<IsExact<Result, 'collection'>>(true);
       });
 
-      it('should return never if the depth option is not present', () => {
+      it('should return false if the depth option is not present', () => {
         type Options = {
           '$$other_option': number;
         };
 
         type Result = $GetUseDepth<Options>;
 
-        assertType<IsExact<Result, never>>(true);
+        assertType<IsExact<Result, false>>(true);
       });
     });
 
@@ -120,14 +120,14 @@ describe('Option - Depth', () => {
         assertType<IsExact<Result, Expected>>(true);
       });
 
-      it('should return an empty object if the depth option is not present', () => {
+      it('should default to $AsShallow if the depth option is not present', () => {
         type Options = {
           '$$other_option': string;
         };
 
         type Result = $PickUseDepth<Options>;
 
-        assertType<IsExact<Result, Record<never, never>>>(true);
+        assertType<IsExact<Result, $AsShallow>>(true);
       });
     });
 

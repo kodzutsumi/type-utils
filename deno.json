@@ -1,34 +1,21 @@
 {
   "name": "@kz/type-utils",
   "exports": {
-    "./options": "./src/options/mod.ts"
+    "./options": "./src/options/mod.ts",
+    "./logic": "./src/logic/mod.ts",
+    "./lint": "./src/lint/mod.ts",
+    "./types": "./src/types/mod.ts"
   },
   "version": "0.0.1",
   "importMap": "./import_map.json",
   "tasks": {
     "test": {
       "description": "Run tests for all packages",
-      "command": "deno test --allow-all --coverage=coverage --trace-leaks --clean"
+      "command": "deno test --allow-all --trace-leaks --clean"
     },
     "test:docs": {
       "description": "Run tests for all packages including docs",
-      "command": "deno test --allow-all --doc --coverage=coverage --trace-leaks --clean"
-    },
-    "cov": {
-      "description": "Run coverage analysis on all packages",
-      "command": "deno coverage --ignore=\"**/*.fixture.ts,.github\" coverage/"
-    },
-    "cov:gen": {
-      "description": "Generate coverage report for all packages",
-      "command": "deno task cov --lcov --output=cov.lcov"
-    },
-    "cov:view": {
-      "description": "View coverage report for all packages",
-      "command": "deno task cov --html"
-    },
-    "cov:all": {
-      "description": "Run all coverage tasks",
-      "command": "deno task cov && deno task cov:gen && deno task cov:view"
+      "command": "deno test --allow-all --doc --trace-leaks --clean"
     },
     "checks": {
       "description": "Run all checks for all packages",

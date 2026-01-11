@@ -16,8 +16,10 @@ export type $AsForward = $UseDirection<false>;
 
 export type $GetUseDirection<
   Options extends Record<string, unknown>,
-> = $GetOption<$UseDirectionKey, Options>;
+  Default extends boolean = false,
+> = $GetOption<Options, $UseDirectionKey, Default>;
 
 export type $PickUseDirection<
   Options extends Record<string, unknown>,
-> = $PickOption<$UseDirectionKey, Options>;
+  Default extends boolean = false,
+> = $PickOption<Options, $UseDirectionKey, Default>;

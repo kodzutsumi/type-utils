@@ -74,14 +74,14 @@ describe('Option - Setter', () => {
         assertType<IsExact<Result, true>>(true);
       });
 
-      it('should return never if the setter option is not present', () => {
+      it('should return false if the setter option is not present', () => {
         type Options = {
           '$$other_option': number;
         };
 
         type Result = $GetUseSetter<Options>;
 
-        assertType<IsExact<Result, never>>(true);
+        assertType<IsExact<Result, false>>(true);
       });
     });
 
@@ -101,14 +101,14 @@ describe('Option - Setter', () => {
         assertType<IsExact<Result, Expected>>(true);
       });
 
-      it('should return an empty object if the setter option is not present', () => {
+      it('should default to a $AsGetter object if the setter option is not present', () => {
         type Options = {
           '$$other_option': string;
         };
 
         type Result = $PickUseSetter<Options>;
 
-        assertType<IsExact<Result, Record<never, never>>>(true);
+        assertType<IsExact<Result, $AsGetter>>(true);
       });
     });
   });

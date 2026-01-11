@@ -75,14 +75,14 @@ describe('Option - Direction', () => {
         assertType<IsExact<Result, true>>(true);
       });
 
-      it('should return never if the direction option is not present', () => {
+      it('should return false if the direction option is not present', () => {
         type Options = {
           '$$other_option': number;
         };
 
         type Result = $GetUseDirection<Options>;
 
-        assertType<IsExact<Result, never>>(true);
+        assertType<IsExact<Result, false>>(true);
       });
     });
 
@@ -102,14 +102,14 @@ describe('Option - Direction', () => {
         assertType<IsExact<Result, Expected>>(true);
       });
 
-      it('should return an empty object if the direction option is not present', () => {
+      it('should default to $AsForward if the direction option is not present', () => {
         type Options = {
           '$$other_option': string;
         };
 
         type Result = $PickUseDirection<Options>;
 
-        assertType<IsExact<Result, Record<never, never>>>(true);
+        assertType<IsExact<Result, $AsForward>>(true);
       });
     });
   });

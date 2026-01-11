@@ -12,7 +12,7 @@ describe('Base - $PickOption', () => {
       $$optionB: number;
     };
 
-    type Result = $PickOption<'$$optionA', Options>;
+    type Result = $PickOption<Options, '$$optionA', number>;
 
     assertType<IsExact<Result, { $$optionA: string }>>(true);
   });
@@ -23,8 +23,8 @@ describe('Base - $PickOption', () => {
       $$optionB: number;
     };
 
-    type Result = $PickOption<'$$optionC', Options>;
+    type Result = $PickOption<Options, '$$optionC', number>;
 
-    assertType<IsExact<Result, Record<never, never>>>(true);
+    assertType<IsExact<Result, { '$$optionC': number }>>(true);
   });
 });

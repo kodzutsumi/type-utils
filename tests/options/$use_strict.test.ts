@@ -75,14 +75,14 @@ describe('Option - Strict', () => {
         assertType<IsExact<Result, true>>(true);
       });
 
-      it('should return never if the strict option is not present', () => {
+      it('should return false if the strict option is not present', () => {
         type Options = {
           '$$other_option': number;
         };
 
         type Result = $GetUseStrict<Options>;
 
-        assertType<IsExact<Result, never>>(true);
+        assertType<IsExact<Result, false>>(true);
       });
     });
 
@@ -102,14 +102,14 @@ describe('Option - Strict', () => {
         assertType<IsExact<Result, Expected>>(true);
       });
 
-      it('should return an empty object if the strict option is not present', () => {
+      it('should default to a $AsLoose object if the strict option is not present', () => {
         type Options = {
           '$$other_option': string;
         };
 
         type Result = $PickUseStrict<Options>;
 
-        assertType<IsExact<Result, Record<never, never>>>(true);
+        assertType<IsExact<Result, $AsLoose>>(true);
       });
     });
   });
