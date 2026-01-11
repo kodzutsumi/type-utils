@@ -17,7 +17,7 @@ describe('Base - $PickOption', () => {
     assertType<IsExact<Result, { $$optionA: string }>>(true);
   });
 
-  it('should return an empty object', () => {
+  it('should return the default type for a non-existent key', () => {
     type Options = {
       $$optionA: string;
       $$optionB: number;

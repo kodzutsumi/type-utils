@@ -17,7 +17,7 @@ describe('Base - $GetOption', () => {
     assertType<IsExact<Result, string>>(true);
   });
 
-  it('should return never', () => {
+  it('should return the default type', () => {
     type Options = {
       $$optionA: string;
       $$optionB: number;

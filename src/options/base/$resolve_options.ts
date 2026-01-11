@@ -16,6 +16,7 @@ import type {
 import type { $UseImmutable, $UseImmutableKey } from '../$use_immutable.ts';
 import type { $AsInverted, $UseInversionKey } from '../$use_inversion.ts';
 import type { $UseRequired, $UseRequiredKey } from '../$use_required.ts';
+import type { $UseSafe, $UseSafeKey } from '../$use_safe.ts';
 import type { $UseSetter, $UseSetterKey } from '../$use_setter.ts';
 import type { $UseStrict, $UseStrictKey } from '../$use_strict.ts';
 import type { $Then, $UseThenKey } from '../$use_then.ts';
@@ -60,6 +61,8 @@ type InnerResolveOptions<$Options> = $Options extends $UseAsync<infer Setting>
   : $Options extends $UseRequired<infer Setting> ?
       & $UseRequired<Setting>
       & InnerResolveOptions<Omit<$Options, $UseRequiredKey>>
+  : $Options extends $UseSafe<infer Setting>
+    ? $UseSafe<Setting> & InnerResolveOptions<Omit<$Options, $UseSafeKey>>
   : $Options extends $UseSetter<infer Setting>
     ? $UseSetter<Setting> & InnerResolveOptions<Omit<$Options, $UseSetterKey>>
   : $Options extends $UseStrict<infer Setting>
