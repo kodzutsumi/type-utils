@@ -2,14 +2,13 @@
 
 import type { $Else } from './$use_else.ts';
 import type { $Then } from './$use_then.ts';
-import type { $AnyType } from './base/_any.ts';
 
 export type $UseCondition<
-  Then extends $AnyType = $AnyType,
-  Else extends $AnyType = $AnyType,
+  Then extends unknown = unknown,
+  Else extends unknown = unknown,
 > = $Then<Then> & $Else<Else>;
 
 export type $Condition<
-  Then extends $AnyType = $AnyType,
-  Else extends $AnyType = $AnyType,
+  Then extends unknown = unknown,
+  Else extends unknown = unknown,
 > = $UseCondition<Then, Else>;

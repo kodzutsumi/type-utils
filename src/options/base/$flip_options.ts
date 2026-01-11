@@ -29,7 +29,7 @@ $UseInversion<infer Value> ?
         Else,
         Then
       >
-      & $FlipOptions<Omit<$Options, $UseThenKey | $UseElseKey>>
+      & $FlipOptions<Omit<Options, $UseThenKey | $UseElseKey>>
   // $UseDirection
   : Options extends $UseDirection<infer Value> ?
       & (Value extends true ? $UseDirection<false> : $UseDirection<true>)

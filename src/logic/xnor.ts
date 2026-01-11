@@ -6,7 +6,7 @@ import type { If } from './if.ts';
 
 type Defaults = $Then<true> & $Else<false>;
 
-export type Xand<
+export type Xnor<
   OperandA extends boolean,
   OperandB extends boolean,
   $Options extends $UseThen | $UseElse = Defaults,
